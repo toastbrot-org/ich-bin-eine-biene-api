@@ -54,7 +54,8 @@ router.all("/update2", async (req, res, next) => {
     req.body.userid != undefined &&
     req.body.autoRotatingBeeLength != undefined &&
     req.body.additionalBeeLength != undefined &&
-    req.body.multiplierLevel != undefined
+    req.body.multiplierLevel != undefined &&
+    req.body.userName != undefined
   ) {
     if (validator(req.body.userid)) {
       await users.updateOne(
@@ -63,6 +64,8 @@ router.all("/update2", async (req, res, next) => {
           autoRotatingBeeLength: req.body.autoRotatingBeeLength,
           additionalBeeLength: req.body.additionalBeeLength,
           multiplierLevel: req.body.multiplierLevel,
+          userName: req.body.userName,
+          lastUpdate: new Date().toLocaleString(),
         },
         { upsert: true }
       );

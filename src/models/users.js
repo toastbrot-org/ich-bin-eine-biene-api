@@ -6,6 +6,8 @@ const usersv1 = mongoose.model(
     autoRotatingBeeLength: Number,
     additionalBeeLength: Number,
     multiplierLevel: Number,
+    userName: String,
+    lastUpdate: String,
   })
 );
 
