@@ -22,32 +22,6 @@ router.get("/deleteall", async (req, res, nect) => {
   }
 });
 
-router.all("/update", async (req, res, next) => {
-  if (
-    req.query.userid &&
-    req.query.autoRotatingBeeLength &&
-    req.query.additionalBeeLength &&
-    req.query.multiplierLevel
-  ) {
-    if (validator(req.query.userid)) {
-      await users.updateOne(
-        { _id: req.query.userid },
-        {
-          autoRotatingBeeLength: req.query.autoRotatingBeeLength,
-          additionalBeeLength: req.query.additionalBeeLength,
-          multiplierLevel: req.query.multiplierLevel,
-        },
-        { upsert: true }
-      );
-      res.send({ status: "ok" });
-    } else {
-      res.send({ status: "fail", error: "Userid false" });
-    }
-  } else {
-    res.send({ status: "fail", error: "Missing Parameters" });
-  }
-});
-
 router.all("/update2", async (req, res, next) => {
   if (
     req.body &&
@@ -81,10 +55,6 @@ router.all("/update2", async (req, res, next) => {
     res.send({
       status: "fail",
       error: "Missing Parameters",
-      got: req.body,
-      notdead: true,
-      userid: req.body,
-      autorotbele: req.body.autoRotatingBeeLength,
     });
   }
 });
