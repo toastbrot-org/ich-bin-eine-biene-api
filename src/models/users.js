@@ -8,6 +8,8 @@ const usersv1 = mongoose.model(
     multiplierLevel: Number,
     userName: String,
     lastUpdate: String,
+    settingNewUI: Boolean,
+    settingClickingAid: Boolean,
   })
 );
 
