@@ -33,23 +33,32 @@ router.all("/update2", async (req, res, next) => {
     req.body.settingNewUI != undefined &&
     req.body.settingClickingAid != undefined
   ) {
-    if (validator(req.body.userid)) {
-      await users.updateOne(
-        { _id: req.body.userid },
-        {
-          autoRotatingBeeLength: req.body.autoRotatingBeeLength,
-          additionalBeeLength: req.body.additionalBeeLength,
-          multiplierLevel: req.body.multiplierLevel,
-          userName: req.body.userName,
-          lastUpdate: new Date().toLocaleString(),
-          settingNewUI: req.body.settingNewUI,
-          settingClickingAid: req.body.settingClickingAid,
-        },
-        { upsert: true }
-      );
-      res.send({ status: "ok" });
+    if (
+      require("crypto")
+        .createHash("md5")
+        .update(secrets.usersApiSecret + req.body.userid)
+        .digest("base64") == req.header("auth")
+    ) {
+      if (validator(req.body.userid)) {
+        await users.updateOne(
+          { _id: req.body.userid },
+          {
+            autoRotatingBeeLength: req.body.autoRotatingBeeLength,
+            additionalBeeLength: req.body.additionalBeeLength,
+            multiplierLevel: req.body.multiplierLevel,
+            userName: req.body.userName,
+            lastUpdate: new Date().toLocaleString(),
+            settingNewUI: req.body.settingNewUI,
+            settingClickingAid: req.body.settingClickingAid,
+          },
+          { upsert: true }
+        );
+        res.send({ status: "ok" });
+      } else {
+        res.send({ status: "fail", error: "Userid false" });
+      }
     } else {
-      res.send({ status: "fail", error: "Userid false" });
+      res.send({ status: "fail", reason: "No authentication" });
     }
   } else {
     res.send({
