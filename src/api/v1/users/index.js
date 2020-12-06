@@ -59,12 +59,15 @@ router.all("/update2", async (req, res, next) => {
         );
         res.send({ status: "ok" });
       } else {
+        res.status(403);
         res.send({ status: "fail", error: "Userid false" });
       }
     } else {
+      res.status(403);
       res.send({ status: "fail", reason: "No authentication" });
     }
   } else {
+    res.status(400);
     res.send({
       status: "fail",
       error: "Missing Parameters",
