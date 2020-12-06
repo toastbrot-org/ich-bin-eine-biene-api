@@ -36,7 +36,11 @@ router.all("/update2", async (req, res, next) => {
     if (
       require("crypto")
         .createHash("md5")
-        .update(secrets.usersApiSecret + req.body.userid)
+        .update(
+          secrets.usersApiSecret +
+            req.body.userid +
+            req.body.additionalBeeLength
+        )
         .digest("base64") == req.header("auth")
     ) {
       if (validator(req.body.userid)) {
