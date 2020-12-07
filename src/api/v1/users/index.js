@@ -22,6 +22,20 @@ router.get("/deleteall", async (req, res, nect) => {
   }
 });
 
+router.all("/leader", async (req, res, next) => {
+  const all_users = await users.find();
+  const all_levels = all_users
+    .map((e) => ({
+      user: e,
+      level:
+        e.autoRotatingBeeLength * 5 +
+        e.additionalBeeLength * 3 +
+        e.multiplierLevel * 2,
+    }))
+    .sort((a, b) => b.level - a.level);
+  res.send(all_levels);
+});
+
 router.all("/update2", async (req, res, next) => {
   if (
     req.body &&
