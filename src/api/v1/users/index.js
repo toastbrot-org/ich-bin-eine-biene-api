@@ -68,6 +68,7 @@ router.all("/update2", async (req, res, next) => {
             lastUpdate: new Date().toLocaleString(),
             settingNewUI: req.body.settingNewUI,
             settingClickingAid: req.body.settingClickingAid,
+            userImage: req.body.userImage,
           },
           { upsert: true }
         );

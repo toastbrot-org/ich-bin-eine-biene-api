@@ -10,6 +10,7 @@ const usersv1 = mongoose.model(
     lastUpdate: String,
     settingNewUI: Boolean,
     settingClickingAid: Boolean,
+    userImage: String,
   })
 );
 
