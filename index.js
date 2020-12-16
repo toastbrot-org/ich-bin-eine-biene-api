@@ -8,15 +8,15 @@ const apiHandler = require("./src/api/index");
 
 const morgan = require("morgan");
 
-mongoose.connect(
-  process.env.mongouri
-    ? process.env.mongouri
-    : "mongodb://192.168.178.53:26001/ichbineinebieneinfos",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+if (process.env.mongouri == undefined) {
+  console.log("Error: No MongoURI set");
+  throw Error("No MongoURI set");
+}
+
+mongoose.connect(process.env.mongouri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(morgan("combined"));
 
