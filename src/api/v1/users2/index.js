@@ -27,10 +27,7 @@ router.all("/leader", async (req, res, next) => {
   const all_levels = all_users
     .map((e) => ({
       user: e,
-      level:
-        e.additionalBeeLength * 6 +
-        e.multiplierLevel * 5 +
-        e.autoRotatingBeeLength * 1,
+      level: e.additionalBeeLength * 3 + e.multiplierLevel * 1,
     }))
     .sort((a, b) => b.level - a.level);
   res.send(all_levels);
