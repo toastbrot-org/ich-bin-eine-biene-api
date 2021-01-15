@@ -27,7 +27,10 @@ router.all("/leader", async (req, res, next) => {
   const all_levels = all_users
     .map((e) => ({
       user: e,
-      level: e.additionalBeeLength * 3 + e.multiplierLevel * 1,
+      level:
+        e.additionalBeeLength * 3 +
+        e.multiplierLevel * 1 +
+        (e.goldenBienens ? e.goldenBienens : 0) * 10,
     }))
     .sort((a, b) => b.level - a.level);
   res.send(all_levels);
@@ -66,6 +69,7 @@ router.all("/update2", async (req, res, next) => {
             settingNewUI: req.body.settingNewUI,
             settingClickingAid: req.body.settingClickingAid,
             userImage: req.body.userImage,
+            goldenBienens: req.body.goldenBienens ? req.body.goldenBienens : 0,
           },
           { upsert: true }
         );
