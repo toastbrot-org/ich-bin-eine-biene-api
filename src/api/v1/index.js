@@ -6,6 +6,7 @@ const router = require("express").Router();
 const InfoHandler = require("./Infos/index");
 const userHandler = require("./users/index");
 const user2Handler = require("./users2/index");
+const eventsHandler = require("./events/index");
 
 router.get("/", (req, res) => {
   res.send(
@@ -16,5 +17,6 @@ router.get("/", (req, res) => {
 router.use("/infos", InfoHandler);
 router.use("/users", userHandler);
 router.use("/users2", user2Handler);
+router.use("/events", eventsHandler);
 
 module.exports = router;
