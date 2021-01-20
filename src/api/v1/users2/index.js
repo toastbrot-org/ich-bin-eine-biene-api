@@ -30,7 +30,7 @@ router.all("/leader", async (req, res, next) => {
       level:
         e.additionalBeeLength * 3 +
         e.multiplierLevel * 1 +
-        (e.goldenBienens ? e.goldenBienens : 0) * 10,
+        (e.goldenBienens ? e.goldenBienens : 0) * 10000,
     }))
     .sort((a, b) => b.level - a.level);
   res.send(all_levels);
